@@ -1,0 +1,214 @@
+/* default pinky thimi */
+:root {
+    --bg-color: #ffd0e4;
+    --text-color: rgb(193, 74, 104);
+    --border-color: #d56296;
+    --btn-color: #ea629b;
+    --btn-hover: #ba4e7b;
+    --slot-border: #f44ea4;
+    --slot-bg: #fff0f5;
+    --download-btn: #66b2ec;
+    --download-hover: #5194c8;
+}
+ /* bule thimi */
+body.blue-theme {
+    --bg-color: #c3e0ff;           
+    --text-color: rgb(74, 104, 193); 
+    --border-color: #6296d5;       
+    --btn-color: #629bea;          
+    --btn-hover: #4e7bba;          
+    --slot-border: #4ea4f4;        
+    --slot-bg: #f0f8ff;            
+    --download-btn: #ea629b;       
+    --download-hover: #ba4e7b;
+}
+
+/* main page layout */
+body {
+    font-family: 'Courier New', monospace;
+    background: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.5s, color 0.5s;
+}
+
+/* users can choose theme on the top left corner */
+.theme-selector {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    font-size: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 10px 15px;
+    border-radius: 30px;
+    backdrop-filter: blur(5px);
+}
+
+.theme-circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid white;
+    transition: transform 0.2s;
+}
+.theme-circle:hover { transform: scale(1.2); }
+.circle-pink { background-color: #fbbbd6; }
+.circle-blue { background-color: #aacdff; }
+
+/* camera feed designs */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    width: 95%;
+    max-width: 1400px;
+}
+
+.camera-section {
+    flex: 1;
+    max-width: 800px;
+    text-align: center;
+}
+
+.video-container {
+    position: relative;
+    border: 8px solid var(--border-color);
+    border-radius: 15px;
+    overflow: hidden;
+    background: black;
+    aspect-ratio: 16 / 9; 
+}
+
+video { /* remember to flip (to look prettier hih) */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    transform: scaleX(-1); 
+}
+
+/* countdown num (center of camera feed) */
+#countdown-display {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    font-size: 150px; 
+    font-weight: bold; 
+    color: white;
+    text-shadow: 0 0 20px rgba(0,0,0,0.9); 
+    display: none; 
+    z-index: 10;
+}
+
+#flash { /* photo taking effects */
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: white; 
+    opacity: 0; 
+    pointer-events: none; 
+    z-index: 20;
+}
+.flash-active { animation: flashAnim 0.2s linear; }
+@keyframes flashAnim { 0% { opacity: 1; } 100% { opacity: 0; } }
+
+.controls { margin-top: 30px; }
+
+/* btns designs n effects */
+button {
+    padding: 20px 40px; 
+    font-size: 22px; 
+    cursor: pointer;
+    background: var(--btn-color); 
+    color: white;
+    border: none; 
+    border-radius: 8px; 
+    font-family: 'Courier New', monospace;
+    font-weight: bold; 
+    transition: transform 0.1s, background 0.2s;
+}
+button:hover { background: var(--btn-hover); transform: scale(1.05); }
+button:active { transform: scale(0.95); }
+button:disabled { background: #555; cursor: not-allowed; transform: none; }
+#downloadBtn { background-color: var(--download-btn); }
+#downloadBtn:hover { background-color: var(--download-hover); }
+
+/* photostrip n frames layers */
+#photo-strip {
+    position: relative; 
+    width: 320px;
+    height: 840px; 
+    background: white;
+    overflow: hidden;
+}
+
+/* frame z-index: 10 */
+#frame-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* photo z-index: 5 */
+.photo-slot {
+    position: absolute;
+    left: 27px;  
+    width: 266px; 
+    height: 200px; 
+    background: #eee;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    z-index: 5; 
+}
+
+#slot-0 { top: 75px; }
+#slot-1 { top: 315px; }
+#slot-2 { top: 555px; }
+
+/* active slot settings (ideas: bg changed and dashed borders) */
+/* active slot z-index: 6 */
+.active-slot::after {
+    content: "";
+    position: absolute;
+    top: 10px; 
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    border: 4px dashed var(--slot-border);
+    z-index: 6; 
+    pointer-events: none;
+}
+
+/* change background color when active */
+.active-slot {
+    background: var(--slot-bg);
+}
+
+/* crop to fit in the slots */
+.photo-slot img { width: 100%; height: 100%; object-fit: cover; }
+
+/* date footer z-index: 15 */
+.strip-footer {
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    text-align: center;
+    z-index: 15; 
+    font-weight: bold;
+    font-size: 14px;
+}

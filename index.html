@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChaCha Photobooth</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="theme-selector">
+        <span>Choose Theme:</span>
+        <div class="theme-circle circle-pink" onclick="toggleTheme('pink')"></div>
+        <div class="theme-circle circle-blue" onclick="toggleTheme('blue')"></div>
+    </div>
+
+    <div class="main-container">
+        <div class="camera-section">
+            <h1>˚.🎀༘⋆✨ChaCha Photobooth ⸜(｡˃ ᵕ ˂ )⸝🌊🪼𓇼₊</h1>
+            
+            <div class="video-container">
+                <video id="video" autoplay playsinline></video>
+                <div id="countdown-display"></div>
+                <div id="flash"></div>
+            </div>
+
+            <div class="controls">
+                <button id="captureBtn">📸 Smile! 1/3</button>
+                <button id="resetBtn" style="display:none;">New Session</button>
+                <button id="downloadBtn" style="display:none;">Save Image</button>
+            </div>
+        </div>
+
+        <div class="preview-section">
+            <div id="photo-strip">
+                <img id="frame-overlay" src="pinkthimi.png" alt="Frame Overlay">
+
+                <div class="photo-slot active-slot" id="slot-0"></div>
+                <div class="photo-slot" id="slot-1"></div>
+                <div class="photo-slot" id="slot-2"></div>
+
+                <div class="strip-footer" id="date-footer">Loading Date...</div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="canvas" style="display:none;"></canvas>
+
+    <script src="script.js"></script>
+</body>
+</html>
